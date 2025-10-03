@@ -4,7 +4,7 @@ part 'onboarding_page_model.freezed.dart';
 part 'onboarding_page_model.g.dart';
 
 @freezed
-class OnboardingPageModel with _$OnboardingPageModel {
+abstract class OnboardingPageModel with _$OnboardingPageModel {
   const factory OnboardingPageModel({
     required String title,
     required String description,

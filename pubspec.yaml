@@ -1,0 +1,46 @@
+name: pokedex
+description: "Aplicación de pokemones"
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^5.9.0
+  flutter_riverpod: ^3.0.1
+  freezed_annotation: ^3.1.0
+  material_design_icons_flutter: ^7.0.7296
+  intl: ^0.20.2
+  flutter_localization: ^0.3.3
+  riverpod_annotation: ^3.0.1
+  json_annotation: ^4.9.0
+  shared_preferences: ^2.5.3
+  flutter_secure_storage: ^4.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.4.6
+  build_runner: ^2.7.1
+  freezed: ^3.2.3
+  riverpod_generator: ^3.0.1
+  json_serializable: ^6.11.1
+  mocktail: ^1.0.4
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/poke_ball.png
+  android_12:
+    image: assets/images/poke_ball.png
+    color: "#FFFFFF"
+  web: false
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+  generate: true

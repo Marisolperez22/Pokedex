@@ -73,7 +73,7 @@ class _OnboardingPageViewState extends ConsumerState<OnboardingPageView> {
                         curve: Curves.easeOut,
                       );
                     } else {
-                      context.goNamed('home');
+                      context.goNamed('/pokemonList');
                     }
                   },
                   style: ElevatedButton.styleFrom(

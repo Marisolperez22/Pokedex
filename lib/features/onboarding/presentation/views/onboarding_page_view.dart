@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pokedex/features/onboarding/presentation/providers/onboarding_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../providers/onboarding_provider.dart';
 import '../widgets/onboarding_content.dart';
 
 class OnboardingPageView extends ConsumerStatefulWidget {

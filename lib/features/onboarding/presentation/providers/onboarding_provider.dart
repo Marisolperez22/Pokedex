@@ -1,8 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/repositories/entities/on_boarding_page_entity/onboarding_page_entity.dart';
-
+import '../../domain/entities/on_boarding_page/onboarding_page_entity.dart';
 
 final onboardingIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -22,4 +21,3 @@ final onboardingPagesProvider = Provider<List<OnboardingPageEntity>>((ref) {
     ),
   ];
 });
-

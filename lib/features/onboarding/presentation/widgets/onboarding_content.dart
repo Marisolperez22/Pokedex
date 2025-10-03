@@ -17,11 +17,15 @@ class OnboardingContent extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Material(
-          color: Colors.white,
-          child: Expanded(child: Center(child: Image.asset(imagePath))),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Image.asset(imagePath),
+            ],
+          ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         Text(
           title,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(

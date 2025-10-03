@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OnboardingPageWidget extends StatelessWidget {
-  final String imagePath;
   final String title;
   final String subtitle;
+  final String imagePath;
 
   const OnboardingPageWidget({
     super.key,
-    required this.imagePath,
     required this.title,
     required this.subtitle,
+    required this.imagePath,
   });
 
   @override
@@ -23,10 +23,7 @@ class OnboardingPageWidget extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: GoogleFonts.poppins(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         Text(

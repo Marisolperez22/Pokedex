@@ -1,9 +1,10 @@
+import 'package:pokedex/app.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'core/config/router/app_router.dart';
-import 'core/services/local_storage_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'core/services/local_storage_service.dart';
 import 'features/pokemons/presentation/providers/favorite_provider.dart';
 
 void main() async {
@@ -20,30 +21,11 @@ void main() async {
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
       ],
       child: EasyLocalization(
-        supportedLocales: const [Locale('es'), Locale('en')],
         path: 'assets/translations',
         fallbackLocale: const Locale('es'),
-        child: MyApp(showOnboarding: !seen),
+        supportedLocales: const [Locale('es'), Locale('en')],
+        child: App(showOnboarding: !seen),
       ),
     ),
   );
-}
-
-class MyApp extends ConsumerWidget {
-  final bool showOnboarding;
-  const MyApp({super.key, required this.showOnboarding});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final goRouter = ref.watch(goRouterProvider);
-    
-    return MaterialApp.router(
-      title: 'Pokedex',
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      routerConfig: goRouter, // ¡Esto es esencial!
-    );
-  }
 }

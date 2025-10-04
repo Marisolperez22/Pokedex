@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../core/config/router/navigation_service.dart';
-import '../providers/onboarding_provider.dart';
+import '../../../../core/providers/local_storage_providers.dart';
 import '../widgets/onboarding_content.dart';
 
-class OnboardingPageView extends ConsumerStatefulWidget {
-  static const String name = 'onboarding';
-  const OnboardingPageView({super.key});
+final onboardingIndexProvider = StateProvider<int>((ref) => 0);
+
+class OnboardingView extends ConsumerStatefulWidget {
+  const OnboardingView({super.key});
 
   @override
-  ConsumerState<OnboardingPageView> createState() => _OnboardingPageViewState();
+  ConsumerState<OnboardingView> createState() => _OnboardingViewState();
 }
 
-class _OnboardingPageViewState extends ConsumerState<OnboardingPageView> {
+class _OnboardingViewState extends ConsumerState<OnboardingView> {
   final _pageController = PageController();
 
   @override
@@ -26,7 +27,20 @@ class _OnboardingPageViewState extends ConsumerState<OnboardingPageView> {
   @override
   Widget build(BuildContext context) {
     final currentIndex = ref.watch(onboardingIndexProvider);
-    final pages = ref.watch(onboardingPagesProvider);
+    final pages = [
+      OnboardingContent(
+        imagePath: 'assets/images/onboarding1.png',
+        title: 'Todos los Pokémon en un solo lugar',
+        subtitle:
+            'Accede a una amplia lista de Pokémon de todas las generaciones creadas por Nintendo',
+      ),
+      OnboardingContent(
+        imagePath: 'assets/images/onboarding2.png',
+        title: 'Mantén tu Pokédex actualizada',
+        subtitle:
+            'Regístrate y guarda tu perfil, Pokémon favoritos, configuraciones y más',
+      ),
+    ];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -34,17 +48,12 @@ class _OnboardingPageViewState extends ConsumerState<OnboardingPageView> {
         child: Column(
           children: [
             Expanded(
-              child: PageView.builder(
+              child: PageView(
                 controller: _pageController,
-                itemCount: pages.length,
                 onPageChanged: (index) {
                   ref.read(onboardingIndexProvider.notifier).state = index;
                 },
-                itemBuilder: (_, index) => OnboardingContent(
-                  imagePath: pages[index].imagePath,
-                  title: pages[index].title,
-                  subtitle: pages[index].subtitle,
-                ),
+                children: pages,
               ),
             ),
             const SizedBox(height: 16),
@@ -66,14 +75,21 @@ class _OnboardingPageViewState extends ConsumerState<OnboardingPageView> {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final storageService = ref.read(
+                      localStorageServiceProvider,
+                    );
+
                     if (currentIndex < pages.length - 1) {
                       _pageController.nextPage(
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeOut,
                       );
                     } else {
-                    NavigationService.goTo(context ,'/home');
+                      await storageService.setOnboardingSeen();
+                      if (context.mounted) {
+                        Navigator.pushReplacementNamed(context, '/home');
+                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(

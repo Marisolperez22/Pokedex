@@ -1,9 +1,8 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pokedex/features/pokemons/data/datasources/pokemon_remote_datasource.dart';
-import '../../../../core/config/network/dio_client.dart';
-import '../../data/repositories/pokemon_repository_impl.dart';
-import '../../domain/repositories/pokemon_repository.dart';
+import '../../data/models/pokemon_detail_response.dart';
+import '../../data/models/pokemon_list_response.dart';
 
-final dioClientProvider = Provider((ref) => DioClient());
-final pokemonRemoteDataSourceProvider = Provider((ref) => PokemonRemoteDataSource(ref.read(dioClientProvider).client));
-final pokemonRepositoryProvider = Provider<PokemonRepository>((ref) => PokemonRepositoryImpl(ref.read(pokemonRemoteDataSourceProvider)));
+abstract class PokemonRepository {
+  Future<List<PokemonListItem>> getPokemonList(int offset, int limit);
+  Future<PokemonDetailResponse> getPokemonDetail(int id);
+  Future<PokemonDetailResponse> getPokemonDetailByUrl(String url);
+}

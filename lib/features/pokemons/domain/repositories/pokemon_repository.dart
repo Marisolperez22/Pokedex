@@ -1,6 +1,9 @@
-import '../../../onboarding/domain/entities/pokemon_entity/pokemon_entity.dart';
+import '../../data/models/pokemon_detail_response.dart';
+import '../../data/models/pokemon_list_response.dart';
 
 abstract class PokemonRepository {
-  Future<List<PokemonEntity>> getPokemonList({int limit = 20, int offset = 0});
-  Future<PokemonEntity> getPokemonDetail(String name);
+  Future<List<PokemonListItem>> getPokemonList(int offset, int limit);
+  Future<PokemonDetailResponse> getPokemonDetail(int id);
+  Future<PokemonDetailResponse> getPokemonDetailByUrl(String url);
+
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'core/config/router/app_router.dart';
 import 'core/utils/secure_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'features/onboarding/presentation/views/onboarding_page_view.dart';
+import 'features/pokemons/presentation/providers/favorite_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,9 +12,13 @@ void main() async {
 
   final storage = SecureStorage();
   final seen = await storage.hasSeenOnboarding();
+  final sharedPreferences = await SharedPreferences.getInstance();
 
   runApp(
     ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+      ],
       child: EasyLocalization(
         supportedLocales: const [Locale('es'), Locale('en')],
         path: 'assets/translations',
@@ -23,25 +29,21 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   final bool showOnboarding;
   const MyApp({super.key, required this.showOnboarding});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final goRouter = ref.watch(goRouterProvider);
+    
+    return MaterialApp.router(
       title: 'Pokedex',
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: showOnboarding ? '/onboarding' : '/login',
-      routes: {
-        '/onboarding': (_) => const OnboardingPageView(),
-        '/login': (_) => const Scaffold(
-              body: Center(child: Text('Login Screen')),
-            ),
-      },
+      routerConfig: goRouter, // ¡Esto es esencial!
     );
   }
 }

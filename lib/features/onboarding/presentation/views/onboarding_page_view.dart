@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../../core/config/router/navigation_service.dart';
 import '../providers/onboarding_provider.dart';
 import '../widgets/onboarding_content.dart';
 
@@ -73,7 +74,7 @@ class _OnboardingPageViewState extends ConsumerState<OnboardingPageView> {
                         curve: Curves.easeOut,
                       );
                     } else {
-                      context.goNamed('/pokemonList');
+                    NavigationService.goToPokemonList(context);
                     }
                   },
                   style: ElevatedButton.styleFrom(

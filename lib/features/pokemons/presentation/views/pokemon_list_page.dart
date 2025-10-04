@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/favorite_provider.dart';
+import '../providers/filter_providers.dart';
 import '../providers/pokemon_list_provider.dart'
     hide filteredPokemonListProvider;
 import '../widgets/pokemon_card.dart';
 import '../widgets/pokemon_search_bar.dart';
-import 'favorite_pokemons_page.dart';
 
 class PokemonListPage extends ConsumerWidget {
   static const String name = 'pokemonList';
@@ -15,8 +14,15 @@ class PokemonListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filteredPokemons = ref.watch(filteredPokemonListProvider);
+    // ✅ Usar el provider combinado que incluye búsqueda + tipos
+    final filteredPokemons = ref.watch(combinedFilteredPokemonProvider);
     final pokemonListAsync = ref.watch(pokemonListProvider);
+    final selectedTypes = ref.watch(selectedTypesProvider);
+
+    // Debug para verificar que los filtros están funcionando
+    print('=== FILTROS ACTIVOS ===');
+    print('Tipos seleccionados: $selectedTypes');
+    print('Pokémon filtrados: ${filteredPokemons.length}');
 
     return Scaffold(
       appBar: AppBar( // Agrega un AppBar para consistencia
@@ -82,7 +88,6 @@ class PokemonListPage extends ConsumerWidget {
           ],
         ),
       ),
-      // ❌ ELIMINA ESTO: bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 }

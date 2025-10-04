@@ -91,7 +91,7 @@ class MainLayout extends ConsumerWidget {
         goRouter.go('/');
         break;
       case 1:
-        goRouter.go('/favorites');
+        goRouter.push('/favorites');
         break;
       case 2:
         goRouter.go('/regions');

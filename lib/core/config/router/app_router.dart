@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../features/pokemons/presentation/views/favorite_pokemons_page.dart';
 import '../../../features/pokemons/presentation/views/main_layout.dart';
+import '../../../features/pokemons/presentation/views/pokemon_details_page.dart';
 import '../../../features/pokemons/presentation/views/pokemon_list_page.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -40,6 +41,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               color: Colors.green,
               child: const Center(child: Text('Perfil')),
             ),
+          ),
+          // En tu go_router_provider.dart
+          GoRoute(
+            path: '/pokemon/:id',
+            name: 'pokemonDetail',
+            builder: (context, state) {
+              final id = int.parse(state.pathParameters['id']!);
+              return PokemonDetailPage(pokemonId: id);
+            },
           ),
         ],
       ),

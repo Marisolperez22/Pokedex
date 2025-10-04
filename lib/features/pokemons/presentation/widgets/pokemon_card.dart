@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/pokemon_constants.dart';
 import '../../domain/entities/pokemon.dart';
 import '../providers/favorite_provider.dart';
+import '../views/pokemon_details_page.dart';
 
 class PokemonCard extends ConsumerWidget {
   final Pokemon pokemon;
@@ -16,29 +17,38 @@ class PokemonCard extends ConsumerWidget {
         PokemonConstants.typeStyles[pokemon.primaryType] ??
         PokemonConstants.typeStyles['Normal']!;
 
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-
-          color: typeStyle.color.withOpacity(0.5),
+    return InkWell(
+      onTap: () {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => PokemonDetailPage(pokemonId: pokemon.id),
         ),
-        child: Row(
-          children: [
-            // Contenedor de imagen con fondo y asset
-            // Información del Pokémon
-            Expanded(flex: 1, child: _buildPokemonInfo()),
-            SizedBox(width: 20),
-            // Corazón de favoritos
-            // const SizedBox(width: 16),
-            Expanded(
-              flex: 1,
-              child: _buildPokemonImageContainer(typeStyle, ref),
-            ),
-          ],
+      );
+      },
+      child: Card(
+        elevation: 4,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+      
+            color: typeStyle.color.withOpacity(0.5),
+          ),
+          child: Row(
+            children: [
+              // Contenedor de imagen con fondo y asset
+              // Información del Pokémon
+              Expanded(flex: 1, child: _buildPokemonInfo()),
+              SizedBox(width: 20),
+              // Corazón de favoritos
+              // const SizedBox(width: 16),
+              Expanded(
+                flex: 1,
+                child: _buildPokemonImageContainer(typeStyle, ref),
+              ),
+            ],
+          ),
         ),
       ),
     );

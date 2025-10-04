@@ -25,11 +25,7 @@ class PokemonListPage extends ConsumerWidget {
     print('Pokémon filtrados: ${filteredPokemons.length}');
 
     return Scaffold(
-      appBar: AppBar( // Agrega un AppBar para consistencia
-        title: const Text('Pokedex'),
-        backgroundColor: Colors.red,
-        foregroundColor: Colors.white,
-      ),
+      
       body: SafeArea(
         child: Column(
           children: [

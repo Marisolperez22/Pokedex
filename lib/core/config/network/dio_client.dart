@@ -1,11 +1,19 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DioClient {
-  final Dio _dio;
-  DioClient([Dio? dio]) : _dio = dio ?? Dio(BaseOptions(baseUrl: 'https://pokeapi.co/api/v2/')) {
-    _dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
-    _dio.options.connectTimeout = const Duration(seconds: 10);
-  }
+import '../../constants/app_constants.dart';
 
-  Dio get client => _dio;
-}
+final dioClientProvider = Provider<Dio>((ref) {
+  final dio = Dio(BaseOptions(
+    baseUrl: AppConstants.baseUrl,
+    connectTimeout: const Duration(seconds: 30),
+    receiveTimeout: const Duration(seconds: 30),
+  ));
+  
+  dio.interceptors.add(LogInterceptor(
+    requestBody: true,
+    responseBody: true,
+  ));
+  
+  return dio;
+});

@@ -97,12 +97,12 @@ class PokemonConstants {
 
 class PokemonTypeStyle {
   final Color color;
-  final String assetImage;
   final Color darkColor;
+  final String assetImage;
 
   const PokemonTypeStyle({
     required this.color,
-    required this.assetImage,
     required this.darkColor,
+    required this.assetImage,
   });
 }

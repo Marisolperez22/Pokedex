@@ -5,9 +5,9 @@ part 'onboarding_page_entity.g.dart';
 @freezed
 abstract class OnboardingPageEntity with _$OnboardingPageEntity {
   const factory OnboardingPageEntity({
-    required String imagePath,
     required String title,
     required String subtitle,
+    required String imagePath,
   }) = _OnboardingPageEntity;
 
   factory OnboardingPageEntity.fromJson(Map<String, dynamic> json) =>

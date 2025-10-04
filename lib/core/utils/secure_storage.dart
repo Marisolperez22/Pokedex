@@ -6,10 +6,10 @@ class SecureStorage {
   static const _keyFav = 'favorites';
 
   Future<void> setOnboardingSeen() async =>
-      _storage.write(key: _key, value: 'false');
+      _storage.write(key: _key, value: 'true');
 
   Future<bool> hasSeenOnboarding() async =>
-      (await _storage.read(key: _key)) == 'false';
+      (await _storage.read(key: _key)) == 'true';
 
 
   Future<List<String>> getFavorites() async {

@@ -28,7 +28,8 @@ class PokemonDetailPage extends ConsumerWidget {
               const Text('Error cargando Pokémon'),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () => ref.invalidate(pokemonDetailProvider(pokemonId)),
+                onPressed: () =>
+                    ref.invalidate(pokemonDetailProvider(pokemonId)),
                 child: const Text('Reintentar'),
               ),
             ],
@@ -40,7 +41,8 @@ class PokemonDetailPage extends ConsumerWidget {
 
   Widget _buildDetailContent(PokemonDetail pokemon, BuildContext context) {
     final primaryType = pokemon.types.isNotEmpty ? pokemon.types[0] : 'Normal';
-    final typeStyle = PokemonConstants.typeStyles[primaryType] ?? 
+    final typeStyle =
+        PokemonConstants.typeStyles[primaryType] ??
         PokemonConstants.typeStyles['Normal']!;
 
     return CustomScrollView(
@@ -104,23 +106,22 @@ class PokemonDetailPage extends ConsumerWidget {
                 // Nombre y número
                 _buildNameAndNumber(pokemon),
                 const SizedBox(height: 16),
-                
+
                 // Tipos
                 _buildTypes(pokemon.types),
                 const SizedBox(height: 16),
-                
+
                 // Descripción
                 _buildDescription(pokemon.description),
-                const SizedBox(height: 24),
-                
+
                 // Estadísticas (Peso, Altura, Categoría, Habilidad)
                 _buildStatsGrid(pokemon),
                 const SizedBox(height: 24),
-                
+
                 // Género
                 _buildGender(pokemon.gender),
                 const SizedBox(height: 24),
-                
+
                 // Debilidades
                 _buildWeaknesses(pokemon.weaknesses),
               ],
@@ -132,18 +133,16 @@ class PokemonDetailPage extends ConsumerWidget {
   }
 
   Widget _buildNameAndNumber(PokemonDetail pokemon) {
-    return Row(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
       children: [
-        Expanded(
-          child: Text(
-            pokemon.capitalizedName,
-            style: const TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
+        Text(
+          pokemon.capitalizedName,
+          style: const TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
           ),
         ),
         Text(
@@ -159,25 +158,41 @@ class PokemonDetailPage extends ConsumerWidget {
   }
 
   Widget _buildTypes(List<String> types) {
-    return Wrap(
+    return Row(
       spacing: 8,
       children: types.map((type) {
-        final typeStyle = PokemonConstants.typeStyles[type] ?? 
+        final typeStyle =
+            PokemonConstants.typeStyles[type] ??
             PokemonConstants.typeStyles['Normal']!;
-        
+
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
             color: typeStyle.color,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Text(
-            type,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
+          child: Row(
+            children: [
+              Container(
+                height: 25,
+                width: 25,
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset('assets/images/${type.toLowerCase()}.png'),
+              ),
+              SizedBox(width: 10),
+              Text(
+                type,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
         );
       }).toList(),
@@ -187,11 +202,7 @@ class PokemonDetailPage extends ConsumerWidget {
   Widget _buildDescription(String description) {
     return Text(
       description,
-      style: const TextStyle(
-        fontSize: 16,
-        color: Colors.black87,
-        height: 1.5,
-      ),
+      style: const TextStyle(fontSize: 16, color: Colors.black87),
     );
   }
 
@@ -266,11 +277,19 @@ class PokemonDetailPage extends ConsumerWidget {
         Row(
           children: [
             Expanded(
-              child: _buildGenderIndicator('Masculino', gender.male, Colors.blue),
+              child: _buildGenderIndicator(
+                'Masculino',
+                gender.male,
+                Colors.blue,
+              ),
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: _buildGenderIndicator('Femenino', gender.female, Colors.pink),
+              child: _buildGenderIndicator(
+                'Femenino',
+                gender.female,
+                Colors.pink,
+              ),
             ),
           ],
         ),
@@ -308,13 +327,7 @@ class PokemonDetailPage extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: Colors.grey,
-          ),
-        ),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
       ],
     );
   }
@@ -336,9 +349,10 @@ class PokemonDetailPage extends ConsumerWidget {
           spacing: 8,
           runSpacing: 8,
           children: weaknesses.map((weakness) {
-            final typeStyle = PokemonConstants.typeStyles[weakness] ?? 
+            final typeStyle =
+                PokemonConstants.typeStyles[weakness] ??
                 PokemonConstants.typeStyles['Normal']!;
-            
+
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
@@ -359,6 +373,4 @@ class PokemonDetailPage extends ConsumerWidget {
       ],
     );
   }
-
-
 }

@@ -18,12 +18,4 @@ class NavigationService {
     context.pop();
   }
 
-  // Métodos específicos para tu app
-  static void goToOnboarding(BuildContext context) {
-    goTo(context, '/onboarding');
-  }
-
-  static void goToPokemonList(BuildContext context) {
-    goTo(context, '/pokemonList');
-  }
 }

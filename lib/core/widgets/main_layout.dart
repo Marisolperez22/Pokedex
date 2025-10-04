@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/config/router/app_router.dart';
-import '../providers/favorite_provider.dart';
+import '../config/router/app_router.dart';
+import '../../features/pokemons/presentation/providers/favorite_provider.dart';
 
 class MainLayout extends ConsumerWidget {
   final Widget child;
@@ -14,7 +14,6 @@ class MainLayout extends ConsumerWidget {
     final favoriteCount = ref.watch(favoritePokemonsProvider).length;
     final goRouter = ref.watch(goRouterProvider);
     
-    // Obtener el índice actual basado en la ruta
     final currentLocation = goRouter.routerDelegate.currentConfiguration.fullPath;
     final currentIndex = _getCurrentIndex(currentLocation);
 
@@ -91,7 +90,7 @@ class MainLayout extends ConsumerWidget {
         goRouter.go('/');
         break;
       case 1:
-        goRouter.push('/favorites');
+        goRouter.go('/favorites');
         break;
       case 2:
         goRouter.go('/regions');

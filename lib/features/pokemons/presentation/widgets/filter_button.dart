@@ -15,25 +15,20 @@ class FilterButton extends ConsumerWidget {
       children: [
         IconButton(
           icon: Icon(
-            Icons.filter_alt,
-            color: hasActiveFilters ? Colors.red : Colors.green,
+            Icons.tune,
+            color: hasActiveFilters ? Colors.deepPurple : Colors.black,
           ),
           onPressed: () => _showFilterModal(context),
         ),
         if (hasActiveFilters)
           Positioned(
-            right: 8,
-            top: 8,
             child: Container(
               padding: const EdgeInsets.all(2),
               decoration: const BoxDecoration(
                 color: Colors.red,
                 shape: BoxShape.circle,
               ),
-              constraints: const BoxConstraints(
-                minWidth: 12,
-                minHeight: 12,
-              ),
+              constraints: const BoxConstraints(minWidth: 2, minHeight: 2),
             ),
           ),
       ],
@@ -45,15 +40,11 @@ class FilterButton extends ConsumerWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.8,
-        minChildSize: 0.5,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (context, scrollController) => SingleChildScrollView(
-          controller: scrollController,
-          child: const FilterModal(),
-        ),
+      builder: (context) => BottomSheet(
+      onClosing: () {
+        
+      },
+        builder: (context) => const FilterModal(),
       ),
     );
   }

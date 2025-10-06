@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PokemonModel {
 
- int get id; String get name; List<String> get types; String get image; int get weight; int get height;
+ int get id; String get name; List<String> get types; String get image; int get weight; int get height; bool get isFavorite;
 /// Create a copy of PokemonModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $PokemonModelCopyWith<PokemonModel> get copyWith => _$PokemonModelCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PokemonModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.types, types)&&(identical(other.image, image) || other.image == image)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.height, height) || other.height == height));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PokemonModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.types, types)&&(identical(other.image, image) || other.image == image)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.height, height) || other.height == height)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(types),image,weight,height);
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(types),image,weight,height,isFavorite);
 
 @override
 String toString() {
-  return 'PokemonModel(id: $id, name: $name, types: $types, image: $image, weight: $weight, height: $height)';
+  return 'PokemonModel(id: $id, name: $name, types: $types, image: $image, weight: $weight, height: $height, isFavorite: $isFavorite)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $PokemonModelCopyWith<$Res>  {
   factory $PokemonModelCopyWith(PokemonModel value, $Res Function(PokemonModel) _then) = _$PokemonModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, List<String> types, String image, int weight, int height
+ int id, String name, List<String> types, String image, int weight, int height, bool isFavorite
 });
 
 
@@ -62,7 +62,7 @@ class _$PokemonModelCopyWithImpl<$Res>
 
 /// Create a copy of PokemonModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? types = null,Object? image = null,Object? weight = null,Object? height = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? types = null,Object? image = null,Object? weight = null,Object? height = null,Object? isFavorite = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -70,7 +70,8 @@ as String,types: null == types ? _self.types : types // ignore: cast_nullable_to
 as List<String>,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as int,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
-as int,
+as int,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -155,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  List<String> types,  String image,  int weight,  int height)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  List<String> types,  String image,  int weight,  int height,  bool isFavorite)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PokemonModel() when $default != null:
-return $default(_that.id,_that.name,_that.types,_that.image,_that.weight,_that.height);case _:
+return $default(_that.id,_that.name,_that.types,_that.image,_that.weight,_that.height,_that.isFavorite);case _:
   return orElse();
 
 }
@@ -176,10 +177,10 @@ return $default(_that.id,_that.name,_that.types,_that.image,_that.weight,_that.h
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  List<String> types,  String image,  int weight,  int height)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  List<String> types,  String image,  int weight,  int height,  bool isFavorite)  $default,) {final _that = this;
 switch (_that) {
 case _PokemonModel():
-return $default(_that.id,_that.name,_that.types,_that.image,_that.weight,_that.height);case _:
+return $default(_that.id,_that.name,_that.types,_that.image,_that.weight,_that.height,_that.isFavorite);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +197,10 @@ return $default(_that.id,_that.name,_that.types,_that.image,_that.weight,_that.h
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  List<String> types,  String image,  int weight,  int height)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  List<String> types,  String image,  int weight,  int height,  bool isFavorite)?  $default,) {final _that = this;
 switch (_that) {
 case _PokemonModel() when $default != null:
-return $default(_that.id,_that.name,_that.types,_that.image,_that.weight,_that.height);case _:
+return $default(_that.id,_that.name,_that.types,_that.image,_that.weight,_that.height,_that.isFavorite);case _:
   return null;
 
 }
@@ -211,7 +212,7 @@ return $default(_that.id,_that.name,_that.types,_that.image,_that.weight,_that.h
 
 
 class _PokemonModel implements PokemonModel {
-  const _PokemonModel({required this.id, required this.name, required final  List<String> types, required this.image, required this.weight, required this.height}): _types = types;
+  const _PokemonModel({required this.id, required this.name, required final  List<String> types, required this.image, required this.weight, required this.height, required this.isFavorite}): _types = types;
   
 
 @override final  int id;
@@ -226,6 +227,7 @@ class _PokemonModel implements PokemonModel {
 @override final  String image;
 @override final  int weight;
 @override final  int height;
+@override final  bool isFavorite;
 
 /// Create a copy of PokemonModel
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +239,16 @@ _$PokemonModelCopyWith<_PokemonModel> get copyWith => __$PokemonModelCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PokemonModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._types, _types)&&(identical(other.image, image) || other.image == image)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.height, height) || other.height == height));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PokemonModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._types, _types)&&(identical(other.image, image) || other.image == image)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.height, height) || other.height == height)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_types),image,weight,height);
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_types),image,weight,height,isFavorite);
 
 @override
 String toString() {
-  return 'PokemonModel(id: $id, name: $name, types: $types, image: $image, weight: $weight, height: $height)';
+  return 'PokemonModel(id: $id, name: $name, types: $types, image: $image, weight: $weight, height: $height, isFavorite: $isFavorite)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$PokemonModelCopyWith<$Res> implements $PokemonModelCopyWi
   factory _$PokemonModelCopyWith(_PokemonModel value, $Res Function(_PokemonModel) _then) = __$PokemonModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, List<String> types, String image, int weight, int height
+ int id, String name, List<String> types, String image, int weight, int height, bool isFavorite
 });
 
 
@@ -274,7 +276,7 @@ class __$PokemonModelCopyWithImpl<$Res>
 
 /// Create a copy of PokemonModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? types = null,Object? image = null,Object? weight = null,Object? height = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? types = null,Object? image = null,Object? weight = null,Object? height = null,Object? isFavorite = null,}) {
   return _then(_PokemonModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -282,7 +284,8 @@ as String,types: null == types ? _self._types : types // ignore: cast_nullable_t
 as List<String>,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as int,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
-as int,
+as int,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

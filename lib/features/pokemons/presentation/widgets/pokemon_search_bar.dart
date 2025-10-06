@@ -1,7 +1,7 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/pokemon_list_provider.dart';
+import '../providers/pokemon_notifier.dart';
 import 'filter_button.dart';
 
 class PokemonSearchBar extends ConsumerWidget {
@@ -20,7 +20,7 @@ class PokemonSearchBar extends ConsumerWidget {
             child: TextField(
               controller: searchController,
               decoration: InputDecoration(
-                hintText: 'Procurar Pokemon...',
+                hintText: 'Buscar',
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -40,4 +40,4 @@ class PokemonSearchBar extends ConsumerWidget {
       ),
     );
   }
-} */
+}

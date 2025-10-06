@@ -12,6 +12,7 @@ abstract class PokemonModel with _$PokemonModel {
     required String image,
     required int weight,
     required int height,
+    required bool isFavorite,
   }) = _PokemonModel;
 
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
@@ -24,26 +25,29 @@ abstract class PokemonModel with _$PokemonModel {
       image: json['sprites']['front_default'] ?? '',
       weight: json['weight'],
       height: json['height'],
+      isFavorite: false,
     );
   }
 
   factory PokemonModel.fromEntity(Pokemon pokemon) => PokemonModel(
-        id: pokemon.id,
-        name: pokemon.name,
-        types: pokemon.types,
-        image: pokemon.image,
-        weight: pokemon.weight,
-        height: pokemon.height,
-      );
+    id: pokemon.id,
+    name: pokemon.name,
+    types: pokemon.types,
+    image: pokemon.image,
+    weight: pokemon.weight,
+    height: pokemon.height,
+    isFavorite: pokemon.isFavorite,
+  );
 }
 
 extension PokemonModelX on PokemonModel {
   Pokemon toEntity() => Pokemon(
-        id: id,
-        name: name,
-        types: types,
-        image: image,
-        weight: weight,
-        height: height,
-      );
+    id: id,
+    name: name,
+    types: types,
+    image: image,
+    weight: weight,
+    height: height,
+    isFavorite: isFavorite,
+  );
 }

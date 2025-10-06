@@ -1,7 +1,7 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/pokemon_constants.dart';
-import '../providers/filter_providers.dart';
+import '../providers/pokemon_notifier.dart';
 
 class FilterModal extends ConsumerStatefulWidget {
   const FilterModal({super.key});
@@ -195,4 +195,3 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     Navigator.of(context).pop();
   }
 }
- */

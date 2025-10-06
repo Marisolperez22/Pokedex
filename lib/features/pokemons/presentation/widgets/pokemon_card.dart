@@ -1,10 +1,8 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/constants/pokemon_constants.dart';
 import '../../domain/entities/pokemon.dart';
-import '../providers/favorite_provider.dart';
-import '../views/pokemon_details_page.dart';
 
 class PokemonCard extends ConsumerWidget {
   final Pokemon pokemon;
@@ -14,16 +12,16 @@ class PokemonCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final typeStyle =
-        PokemonConstants.typeStyles[pokemon.types] ??
+        PokemonConstants.typeStyles[pokemon.types.map((e) => e.toLowerCase()).toList()] ??
         PokemonConstants.typeStyles['Normal']!;
 
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => PokemonDetailPage(pokemonId: pokemon.id ?? 0),
-          ),
-        );
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => PokemonDetailPage(pokemonId: pokemon.id ?? 0),
+        //   ),
+        // );
       },
       child: Card(
         elevation: 4,
@@ -37,12 +35,10 @@ class PokemonCard extends ConsumerWidget {
           ),
           child: Row(
             children: [
-              // Contenedor de imagen con fondo y asset
-              // Información del Pokémon
+            
               Expanded(flex: 1, child: _buildPokemonInfo()),
               SizedBox(width: 20),
-              // Corazón de favoritos
-              // const SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 flex: 1,
                 child: _buildPokemonImageContainer(typeStyle, ref),
@@ -94,7 +90,7 @@ class PokemonCard extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(40),
               ),
               child: Image.network(
-                pokemon.imageUrl ?? '',
+                pokemon.image,
                 fit: BoxFit.contain,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
@@ -118,7 +114,7 @@ class PokemonCard extends ConsumerWidget {
             ),
           ),
         ),
-        Positioned(left: 70, child: _buildFavoriteButton(ref)),
+        Positioned(right: 5, top: 10,child: _buildFavoriteButton(ref)),
       ],
     );
   }
@@ -131,7 +127,7 @@ class PokemonCard extends ConsumerWidget {
         children: [
           // Número
           Text(
-            pokemon.id.toString(),
+            'N°${pokemon.id.toString().padLeft(3, '0')}',
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -141,7 +137,7 @@ class PokemonCard extends ConsumerWidget {
           const SizedBox(height: 4),
           // Nombre
           Text(
-            pokemon.name ?? '',
+            pokemon.name,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -160,7 +156,7 @@ class PokemonCard extends ConsumerWidget {
     return Wrap(
       spacing: 8,
       runSpacing: 4,
-      children: (pokemon.types ?? []).map((type) {
+      children: (pokemon.types).map((type) {
         final typeStyle =
             PokemonConstants.typeStyles[type] ??
             PokemonConstants.typeStyles['Normal']!;
@@ -179,7 +175,7 @@ class PokemonCard extends ConsumerWidget {
             ],
           ),
           child: Text(
-            type.name ?? '',
+            type,
             style: const TextStyle(
               fontSize: 12,
               color: Colors.white,
@@ -212,4 +208,3 @@ class PokemonCard extends ConsumerWidget {
     );
   }
 }
- */

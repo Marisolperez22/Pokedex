@@ -1,6 +1,6 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/filter_providers.dart';
+import '../providers/pokemon_notifier.dart';
 import 'filter_modal.dart';
 
 class FilterButton extends ConsumerWidget {
@@ -49,4 +49,3 @@ class FilterButton extends ConsumerWidget {
     );
   }
 }
- */

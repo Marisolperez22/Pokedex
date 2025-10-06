@@ -10,5 +10,6 @@ abstract class Pokemon with _$Pokemon {
     required String image,
     required int weight,
     required int height,
+    required bool isFavorite,
   }) = _Pokemon;
 }

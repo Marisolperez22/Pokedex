@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/pokemon_notifier.dart';
+import '../widgets/pokemon_card.dart';
+import '../widgets/pokemon_search_bar.dart';
 
 class PokemonListPage extends ConsumerStatefulWidget {
   const PokemonListPage({super.key});
@@ -41,43 +43,30 @@ class _PokemonListPageState extends ConsumerState<PokemonListPage> {
     return Scaffold(
       body: SafeArea(
         child: state.when(
-          data: (pokemons) => ListView.builder(
-            controller: _scrollController,
-            itemCount: pokemons.length + 1, // +1 para indicador de carga
-            itemBuilder: (context, index) {
-              if (index == pokemons.length) {
-                return const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Center(child: CircularProgressIndicator()),
-                );
-              }
-              final pokemon = pokemons[index];
-              return Card(
-                elevation: 4,
-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
-                child: ListTile(
-                  leading: Image.network(
-                    pokemon.image,
-                    width: 64,
-                    height: 64,
-                    errorBuilder: (_, __, ___) =>
-                        const Icon(Icons.image_not_supported),
-                  ),
-                  title: Text(
-                    '#${pokemon.id} ${pokemon.name.toUpperCase()}',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text('Tipos: ${pokemon.types.join(', ')}'),
+          data: (pokemons) => Column(
+            children: [
+                          const PokemonSearchBar(),
+
+              Expanded(
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: pokemons.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index == pokemons.length) {
+                      return const Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+                    final pokemon = pokemons[index];
+                    return PokemonCard(pokemon: pokemon);
+                  },
                 ),
-              );
-            },
+              ),
+            ],
           ),
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (err, _) => Center(
-            child: Text('Error: $err'),
-          ),
+          error: (err, _) => Center(child: Text('Error: $err')),
         ),
       ),
     );

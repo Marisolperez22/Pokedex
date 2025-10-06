@@ -36,19 +36,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             name: 'home',
             builder: (context, state) => const PokemonListPage(),
           ),
-          GoRoute(
-            path: '/pokemon/:id',
-            name: 'pokemonDetail',
-            builder: (context, state) {
-              final id = int.parse(state.pathParameters['id']!);
-              return PokemonDetailPage(pokemonId: id);
-            },
-          ),
-          GoRoute(
-            path: '/favorites',
-            name: 'favorites',
-            builder: (context, state) => const FavoritePokemonsPage(),
-          ),
+         
+          // GoRoute(
+          //   path: '/favorites',
+          //   name: 'favorites',
+          //   builder: (context, state) => const FavoritePokemonsPage(),
+          // ),
           GoRoute(
             path: '/regions',
             name: 'regions',

@@ -1,39 +1,41 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/entities/pokemon_detail.dart';
+/* import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pokedex/features/pokemons/domain/entities/pokemon.dart';
 import 'pokemon_list_provider.dart';
 
-final pokemonDetailProvider = FutureProvider.family<PokemonDetail, int>((ref, pokemonId) async {
+final pokemonDetailProvider = FutureProvider.family<Pokemon, int>((ref, pokemonId) async {
   final repository = ref.read(pokemonRepositoryProvider);
   
   // Obtener datos básicos
-  final detailResponse = await repository.getPokemonDetail(pokemonId);
+  final detailResponse = await repository.getPokemonDetail('pokemonId');
   
-  // Mapear a la entidad PokemonDetail
-  return PokemonDetail(
-    id: detailResponse.id,
-    name: detailResponse.name,
-    imageUrl: detailResponse.sprites.frontDefault,
-    types: detailResponse.types.map((type) => type.type.capitalized).toList(),
-    description: _getDescription(detailResponse.name), // Descripción hardcodeada por simplicidad
-    weight: detailResponse.weight,
-    height: detailResponse.height,
-    category: _getCategory(detailResponse.name), // Categoría hardcodeada
-    ability: detailResponse.abilities.isNotEmpty 
-        ? detailResponse.abilities.first.ability.name
-        : 'Desconocida',
-    gender: PokemonGender(male: 87.5, female: 12.5), // Datos de ejemplo
-    weaknesses: [], // Calcular debilidades
-    stats: PokemonStats(
-      hp: detailResponse.stats[0].baseStat,
-      attack: detailResponse.stats[1].baseStat,
-      defense: detailResponse.stats[2].baseStat,
-      specialAttack: detailResponse.stats[3].baseStat,
-      specialDefense: detailResponse.stats[4].baseStat,
-      speed: detailResponse.stats[5].baseStat,
-    ),
+  // Mapear a la entidad Pokemon
+  return Pokemon(
+//     id: detailResponse.id,
+//     name: detailResponse.name,
+//     isFavorite: false,
+// abilities: [],
+//     imageUrl: detailResponse.sprites.frontDefault,
+//     types: detailResponse.types.map((type) => type.type.capitalized).toList(),
+//     // description: _getDescription(detailResponse.name), // Descripción hardcodeada por simplicidad
+//     weight: detailResponse.weight,
+//     height: detailResponse.height,
+    // category: _getCategory(detailResponse.name), // Categoría hardcodeada
+    // abilities: detailResponse.abilities.isNotEmpty 
+    //     ? detailResponse.abilities.first.ability.name
+    //     : 'Desconocida',
+    // gender: PokemonGender(male: 87.5, female: 12.5), // Datos de ejemplo
+    // weaknesses: [], // Calcular debilidades
+    // stats: PokemonStats(
+    //   hp: detailResponse.stats[0].baseStat,
+    //   attack: detailResponse.stats[1].baseStat,
+    //   defense: detailResponse.stats[2].baseStat,
+    //   specialAttack: detailResponse.stats[3].baseStat,
+    //   specialDefense: detailResponse.stats[4].baseStat,
+    //   speed: detailResponse.stats[5].baseStat,
+    // ),
   );
 });
-
+ 
 // Funciones auxiliares (en una app real, esto vendría de la API)
 String _getDescription(String name) {
   final descriptions = {
@@ -78,4 +80,4 @@ String _getCategory(String name) {
   }
   
   return weaknesses.toSet().toList(); // Remover duplicados
-} */
+} */ */

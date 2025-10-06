@@ -1,18 +1,17 @@
-abstract class AppException implements Exception {
-  final String message;
-  final StackTrace? stackTrace;
+import '../errors/failure.dart';
 
-  const AppException(this.message, [this.stackTrace]);
+class ServerFailure extends Failure {
+  const ServerFailure(super.message, {super.code});
 }
 
-class NetworkException extends AppException {
-  const NetworkException(super.message, [super.stackTrace]);
+class CacheFailure extends Failure {
+  const CacheFailure(super.message);
 }
 
-class CacheException extends AppException {
-  const CacheException(super.message, [super.stackTrace]);
+class NetworkFailure extends Failure {
+  const NetworkFailure(super.message);
 }
 
-class MappingException extends AppException {
-  const MappingException(super.message, [super.stackTrace]);
+class UnknownFailure extends Failure {
+  const UnknownFailure(super.message);
 }

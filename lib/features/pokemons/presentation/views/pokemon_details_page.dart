@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/constants/pokemon_constants.dart';
-import '../../domain/entities/pokemon_detail.dart';
+import '../../domain/entities/pokemon.dart';
 import '../providers/pokemon_details_provider.dart';
 
 class PokemonDetailPage extends ConsumerWidget {
@@ -39,8 +39,10 @@ class PokemonDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildDetailContent(PokemonDetail pokemon, BuildContext context) {
-    final primaryType = pokemon.types.isNotEmpty ? pokemon.types[0] : 'Normal';
+  Widget _buildDetailContent(Pokemon pokemon, BuildContext context) {
+    final primaryType = (pokemon.types ?? []).isNotEmpty
+        ? (pokemon.types ?? [])[0]
+        : 'Normal';
     final typeStyle =
         PokemonConstants.typeStyles[primaryType] ??
         PokemonConstants.typeStyles['Normal']!;
@@ -71,7 +73,7 @@ class PokemonDetailPage extends ConsumerWidget {
                       child: Hero(
                         tag: 'pokemon-image-${pokemon.id}',
                         child: Image.network(
-                          pokemon.imageUrl,
+                          pokemon.imageUrl ?? '',
                           width: 200,
                           height: 200,
                           fit: BoxFit.contain,
@@ -108,22 +110,27 @@ class PokemonDetailPage extends ConsumerWidget {
                 const SizedBox(height: 16),
 
                 // Tipos
-                _buildTypes(pokemon.types),
+                _buildTypes(
+                  (pokemon.types ?? [])
+                      .map((e) => e.name)
+                      .whereType<String>()
+                      .toList(),
+                ),
                 const SizedBox(height: 16),
 
                 // Descripción
-                _buildDescription(pokemon.description),
+                // _buildDescription(pokemon.description),
 
                 // Estadísticas (Peso, Altura, Categoría, Habilidad)
                 _buildStatsGrid(pokemon),
                 const SizedBox(height: 24),
 
                 // Género
-                _buildGender(pokemon.gender),
+                // _buildGender(pokemon.gender),
                 const SizedBox(height: 24),
 
                 // Debilidades
-                _buildWeaknesses(pokemon.weaknesses),
+                // _buildWeaknesses(pokemon.weaknesses),
               ],
             ),
           ),
@@ -132,13 +139,13 @@ class PokemonDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildNameAndNumber(PokemonDetail pokemon) {
+  Widget _buildNameAndNumber(Pokemon pokemon) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
       children: [
         Text(
-          pokemon.capitalizedName,
+          pokemon.name ?? '',
           style: const TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.bold,
@@ -146,7 +153,7 @@ class PokemonDetailPage extends ConsumerWidget {
           ),
         ),
         Text(
-          pokemon.number,
+          pokemon.id.toString(),
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -206,7 +213,7 @@ class PokemonDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildStatsGrid(PokemonDetail pokemon) {
+  Widget _buildStatsGrid(Pokemon pokemon) {
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -215,10 +222,10 @@ class PokemonDetailPage extends ConsumerWidget {
       mainAxisSpacing: 16,
       childAspectRatio: 3,
       children: [
-        _buildStatItem('PESO', pokemon.formattedWeight),
-        _buildStatItem('ALTURA', pokemon.formattedHeight),
-        _buildStatItem('CATEGORÍA', pokemon.category),
-        _buildStatItem('HABILIDAD', pokemon.ability),
+        _buildStatItem('PESO', pokemon.height.toString()),
+        _buildStatItem('ALTURA', pokemon.height.toString()),
+        _buildStatItem('CATEGORÍA', 'category'),
+        _buildStatItem('HABILIDAD', 'ability'),
       ],
     );
   }
@@ -261,41 +268,41 @@ class PokemonDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildGender(PokemonGender gender) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'GÉNERO',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(
-              child: _buildGenderIndicator(
-                'Masculino',
-                gender.male,
-                Colors.blue,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: _buildGenderIndicator(
-                'Femenino',
-                gender.female,
-                Colors.pink,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+  // Widget _buildGender(PokemonGender gender) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       const Text(
+  //         'GÉNERO',
+  //         style: TextStyle(
+  //           fontSize: 18,
+  //           fontWeight: FontWeight.bold,
+  //           color: Colors.black87,
+  //         ),
+  //       ),
+  //       const SizedBox(height: 16),
+  //       Row(
+  //         children: [
+  //           Expanded(
+  //             child: _buildGenderIndicator(
+  //               'Masculino',
+  //               gender.male,
+  //               Colors.blue,
+  //             ),
+  //           ),
+  //           const SizedBox(width: 16),
+  //           Expanded(
+  //             child: _buildGenderIndicator(
+  //               'Femenino',
+  //               gender.female,
+  //               Colors.pink,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildGenderIndicator(String label, double percentage, Color color) {
     return Column(
@@ -374,3 +381,4 @@ class PokemonDetailPage extends ConsumerWidget {
     );
   }
 }
+ */

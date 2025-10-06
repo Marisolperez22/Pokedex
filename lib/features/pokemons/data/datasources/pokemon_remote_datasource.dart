@@ -1,28 +1,31 @@
 import 'package:dio/dio.dart';
 
-import '../models/pokemon_detail_response.dart';
-import '../models/pokemon_list_response.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../models/pokemon_model/pokemon_model.dart';
 
-class PokemonRemoteDataSource {
+abstract class IPokemonRemoteDataSource {
+  Future<List<PokemonModel>> getPokemonList(int offset, int limit);
+}
+
+class PokemonRemoteDataSource implements IPokemonRemoteDataSource {
   final Dio _dio = Dio();
+  final baseUrl = AppConstants.baseUrl;
 
-  Future<PokemonListResponse> fetchPokemonList(int offset, int limit) async {
+  @override
+  Future<List<PokemonModel>> getPokemonList(int offset, int limit) async {
     final response = await _dio.get(
-      'https://pokeapi.co/api/v2/pokemon',
+      '$baseUrl/pokemon',
       queryParameters: {'offset': offset, 'limit': limit},
     );
-    return PokemonListResponse.fromJson(response.data);
-  }
 
-  Future<PokemonDetailResponse> fetchPokemonDetail(int id) async {
-    final response = await _dio.get(
-      'https://pokeapi.co/api/v2/pokemon/$id',
-    );
-    return PokemonDetailResponse.fromJson(response.data);
-  }
+    final results = response.data['results'] as List;
 
-  Future<PokemonDetailResponse> fetchPokemonDetailByUrl(String url) async {
-    final response = await _dio.get(url);
-    return PokemonDetailResponse.fromJson(response.data);
+    final futures = results.map((pokemon) async {
+      final detail = await _dio.get(pokemon['url']);
+      return PokemonModel.fromJson(detail.data);
+    });
+
+    final pokemons = await Future.wait(futures);
+    return pokemons;
   }
 }

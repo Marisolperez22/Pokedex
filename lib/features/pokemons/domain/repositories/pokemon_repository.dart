@@ -1,9 +1,8 @@
-import '../../data/models/pokemon_detail_response.dart';
-import '../../data/models/pokemon_list_response.dart';
+import 'package:either_dart/either.dart';
+
+import '../entities/pokemon.dart';
+import '../../../../core/errors/failure.dart';
 
 abstract class PokemonRepository {
-  Future<List<PokemonListItem>> getPokemonList(int offset, int limit);
-  Future<PokemonDetailResponse> getPokemonDetail(int id);
-  Future<PokemonDetailResponse> getPokemonDetailByUrl(String url);
-
+  Future<Either<Failure, List<Pokemon>>> getPokemonList(int offset, int limit);
 }

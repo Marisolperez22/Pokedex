@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/constants/pokemon_constants.dart';
@@ -14,16 +14,16 @@ class PokemonCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final typeStyle =
-        PokemonConstants.typeStyles[pokemon.primaryType] ??
+        PokemonConstants.typeStyles[pokemon.types] ??
         PokemonConstants.typeStyles['Normal']!;
 
     return InkWell(
       onTap: () {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => PokemonDetailPage(pokemonId: pokemon.id),
-        ),
-      );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => PokemonDetailPage(pokemonId: pokemon.id ?? 0),
+          ),
+        );
       },
       child: Card(
         elevation: 4,
@@ -32,7 +32,7 @@ class PokemonCard extends ConsumerWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-      
+
             color: typeStyle.color.withOpacity(0.5),
           ),
           child: Row(
@@ -94,7 +94,7 @@ class PokemonCard extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(40),
               ),
               child: Image.network(
-                pokemon.imageUrl,
+                pokemon.imageUrl ?? '',
                 fit: BoxFit.contain,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
@@ -131,7 +131,7 @@ class PokemonCard extends ConsumerWidget {
         children: [
           // Número
           Text(
-            pokemon.number,
+            pokemon.id.toString(),
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -141,7 +141,7 @@ class PokemonCard extends ConsumerWidget {
           const SizedBox(height: 4),
           // Nombre
           Text(
-            pokemon.capitalizedName,
+            pokemon.name ?? '',
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -160,7 +160,7 @@ class PokemonCard extends ConsumerWidget {
     return Wrap(
       spacing: 8,
       runSpacing: 4,
-      children: pokemon.types.map((type) {
+      children: (pokemon.types ?? []).map((type) {
         final typeStyle =
             PokemonConstants.typeStyles[type] ??
             PokemonConstants.typeStyles['Normal']!;
@@ -179,7 +179,7 @@ class PokemonCard extends ConsumerWidget {
             ],
           ),
           child: Text(
-            type,
+            type.name ?? '',
             style: const TextStyle(
               fontSize: 12,
               color: Colors.white,
@@ -195,13 +195,21 @@ class PokemonCard extends ConsumerWidget {
     return IconButton(
       style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
       icon: Icon(
-        pokemon.isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: pokemon.isFavorite ? Colors.red : Colors.white,
+        // (pokemon.isFavorite ?? false) ?
+         Icons.favorite ,
+        //  : Icons.favorite_border,
+        color: 
+        // (pokemon.isFavorite ?? false) ?
+         Colors.red,
+          // : Colors.white,
         size: 28,
       ),
       onPressed: () {
-        ref.read(favoritePokemonsProvider.notifier).toggleFavorite(pokemon.id);
+        // ref
+        //     .read(favoritePokemonsProvider.notifier)
+        //     .toggleFavorite(pokemon.id ?? 0);
       },
     );
   }
 }
+ */

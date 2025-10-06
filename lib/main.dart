@@ -18,7 +18,7 @@ void main() async {
   runApp(
     ProviderScope(
       overrides: [
-        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+        // sharedPreferencesProvider.overrideWithValue(sharedPreferences),
       ],
       child: EasyLocalization(
         path: 'assets/translations',

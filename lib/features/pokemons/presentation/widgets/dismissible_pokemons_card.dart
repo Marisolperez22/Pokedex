@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokedex/features/pokemons/presentation/widgets/pokemon_card.dart';
 
@@ -34,7 +34,7 @@ class DismissiblePokemonCard extends ConsumerWidget {
       },
       onDismissed: (direction) {
         // Eliminar de favoritos usando ref.read()
-        ref.read(favoritePokemonsProvider.notifier).removeFavorite(pokemon.id);
+        ref.read(favoritePokemonsProvider.notifier).removeFavorite(pokemon.id ?? 0);
         
         // Mostrar snackbar de confirmación
         _showRemovedSnackbar(context, pokemon, ref);
@@ -69,7 +69,7 @@ class DismissiblePokemonCard extends ConsumerWidget {
       builder: (context) => AlertDialog(
         title: const Text('Eliminar de favoritos'),
         content: Text(
-          '¿Estás seguro de que quieres eliminar a ${pokemon.capitalizedName} de tus favoritos?',
+          '¿Estás seguro de que quieres eliminar a ${pokemon.name} de tus favoritos?',
         ),
         actions: [
           TextButton(
@@ -91,17 +91,17 @@ class DismissiblePokemonCard extends ConsumerWidget {
   void _showRemovedSnackbar(BuildContext context, Pokemon pokemon, WidgetRef ref) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${pokemon.capitalizedName} eliminado de favoritos'),
+        content: Text('${pokemon.name} eliminado de favoritos'),
         action: SnackBarAction(
           label: 'Deshacer',
           textColor: Colors.yellow,
           onPressed: () {
             // Re-agregar a favoritos usando ref.read()
-            ref.read(favoritePokemonsProvider.notifier).toggleFavorite(pokemon.id);
+            ref.read(favoritePokemonsProvider.notifier).toggleFavorite(pokemon.id ?? 0);
           },
         ),
         duration: const Duration(seconds: 3),
       ),
     );
   }
-}
+} */

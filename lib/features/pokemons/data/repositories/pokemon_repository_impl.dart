@@ -1,26 +1,27 @@
-import '../../presentation/providers/repository_provider.dart';
+import 'package:either_dart/either.dart';
+import 'package:pokedex/features/pokemons/data/models/pokemon_model/pokemon_model.dart';
+import '../../domain/entities/pokemon.dart';
+import '../../../../core/errors/failure.dart';
+import '../../../../core/errors/error_mapper.dart';
 import '../datasources/pokemon_remote_datasource.dart';
-import '../models/pokemon_detail_response.dart';
-import '../models/pokemon_list_response.dart';
+import '../../domain/repositories/pokemon_repository.dart';
 
 class PokemonRepositoryImpl implements PokemonRepository {
-  final PokemonRemoteDataSource remoteDataSource;
+  final PokemonRemoteDataSource remote;
 
-  PokemonRepositoryImpl({required this.remoteDataSource});
-
-  @override
-  Future<List<PokemonListItem>> getPokemonList(int offset, int limit) async {
-    final response = await remoteDataSource.fetchPokemonList(offset, limit);
-    return response.results;
-  }
+  PokemonRepositoryImpl(this.remote);
 
   @override
-  Future<PokemonDetailResponse> getPokemonDetail(int id) {
-    return remoteDataSource.fetchPokemonDetail(id);
-  }
-
-  @override
-  Future<PokemonDetailResponse> getPokemonDetailByUrl(String url) {
-    return remoteDataSource.fetchPokemonDetailByUrl(url);
+  Future<Either<Failure, List<Pokemon>>> getPokemonList(
+    int offset,
+    int limit,
+  ) async {
+    try {
+      final models = await remote.getPokemonList(offset, limit);
+      final entities = models.map((e) => e.toEntity()).toList();
+      return Right(entities);
+    } catch (e) {
+      return Left(mapExceptionToFailure(e));
+    }
   }
 }

@@ -11,10 +11,11 @@ class MainLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favoriteCount = ref.watch(favoritePokemonsProvider).length;
+    // final favoriteCount = ref.watch(favoritePokemonsProvider).length;
     final goRouter = ref.watch(goRouterProvider);
-    
-    final currentLocation = goRouter.routerDelegate.currentConfiguration.fullPath;
+
+    final currentLocation =
+        goRouter.routerDelegate.currentConfiguration.fullPath;
     final currentIndex = _getCurrentIndex(currentLocation);
 
     return Scaffold(
@@ -32,31 +33,32 @@ class MainLayout extends ConsumerWidget {
             icon: Stack(
               children: [
                 const Icon(Icons.favorite),
-                if (favoriteCount > 0)
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
+                // if (favoriteCount > 0)
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Text(
+                      'hola',
+                      // favoriteCount > 99 ? '99+' : favoriteCount.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 8,
+                        fontWeight: FontWeight.bold,
                       ),
-                      constraints: const BoxConstraints(
-                        minWidth: 16,
-                        minHeight: 16,
-                      ),
-                      child: Text(
-                        favoriteCount > 99 ? '99+' : favoriteCount.toString(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 8,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
+                ),
               ],
             ),
             label: 'Favoritos',
@@ -84,7 +86,7 @@ class MainLayout extends ConsumerWidget {
 
   void _onItemTapped(int index, BuildContext context, WidgetRef ref) {
     final goRouter = ref.read(goRouterProvider);
-    
+
     switch (index) {
       case 0:
         goRouter.go('/');
